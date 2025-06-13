@@ -1,18 +1,14 @@
 Get-Process | Where-Object {
     try {
-        $_.MainWindowHandle -ne 0
+        $_.Path -like "C:\Sce\*"
     } catch {
         $false
     }
 } | ForEach-Object {
     try {
-        # Önce pencereyi kapatmayı dene
-        if (-not $_.CloseMainWindow()) {
-            # Kapanmazsa zorla kapat
-            $_.Kill()
-        }
-        Write-Output "Kapatıldı: $($_.ProcessName)"
+        $_.Kill()
+        Write-Output "Kapatıldı: $($_.ProcessName) (PID: $($_.Id))"
     } catch {
-        Write-Output "Kapatılamadı: $($_.ProcessName)"
+        Write-Output "Kapatılamadı: $($_.ProcessName) (PID: $($_.Id))"
     }
 }
