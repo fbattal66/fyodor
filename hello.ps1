@@ -1,3 +1,3 @@
-echo "..."
+Remove-Item "C:\Sce\*" -File
 
 
